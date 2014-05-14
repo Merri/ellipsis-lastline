@@ -1,0 +1,60 @@
+/* must have style */
+[data-ellipsis-lastline] {
+    overflow: hidden;
+}
+
+/* additional styles required to get things rolling in single line */
+[data-ellipsis-lastline="single"] {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* wow, native feature, how complete */
+[data-ellipsis-lastline="opera"] {
+    text-overflow: -o-ellipsis-lastline;
+}
+
+/* generate a visible hyphen, because data-overflow hides auto-generated hyphen in browsers that support hyphenation */
+[data-hyphen]:before {
+    content: '-';
+    display: inline-block;
+    width: 0;
+}
+
+/* make the text invisible, but keep it selectable */
+[data-overflow],
+[data-overflow] * {
+    color: transparent !important;
+}
+
+/* and make it appear above last line ellipsis text */
+[data-overflow] {
+    position: relative;
+}
+
+/* the last visible line with ellipsis */
+[data-lastline] {
+    hyphens: none; /* must turn hyphens off! */
+    overflow: hidden;
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+    position: absolute;
+    text-indent: 0; /* we do not want this to inherit */
+    text-overflow: ellipsis;
+    white-space: pre; /* should give the most reliable cross-browser behavior */
+    width: inherit;
+    word-wrap: normal; /* another rule we don't want to inherit */
+}
+
+/* text-only mode support */
+[data-lastline]:before {
+    content: attr(data-ellipsis);
+}
+
+/* WebKit line-clamp */
+[data-line-clamp] {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
